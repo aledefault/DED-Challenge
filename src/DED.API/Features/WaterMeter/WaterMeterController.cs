@@ -27,14 +27,14 @@ namespace DED.API.Features.WaterMeter
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _mediator.Send(new WaterMeterQuery.Query(id));
+            var result = await _mediator.Send(new GetWaterMeterQuery.Query(id));
             return result != null ? Ok(result) : NotFound();
         }
 
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new WaterMetersQuery.Query());
+            var result = await _mediator.Send(new GetAllWaterMetersQuery.Query());
             return result != null ? Ok(result) : NotFound();
         }
 
@@ -44,7 +44,7 @@ namespace DED.API.Features.WaterMeter
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = await _mediator.Send(new WaterMeterQueryBySerialNumber.Query(model.SerialNumber));
+            var result = await _mediator.Send(new GetWaterMeterQueryBySerialNumber.Query(model.SerialNumber));
             if (result != null)
                 return Conflict();
 

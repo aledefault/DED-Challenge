@@ -136,15 +136,15 @@ using System.Text;
         switch (DeviceToAdd)
         {
             case Device.EnergyMeter:
-                //response = await ClientFactory.CreateClient("api").PostAsync("energymeter", GetContentForm());
+                response = await ClientFactory.CreateClient("api").PostAsync("energymeter", GetContentForm());
                 break;
 
             case Device.Gateway:
-                //response = await ClientFactory.CreateClient("api").PostAsync("gateway", GetContentForm());
+                response = await ClientFactory.CreateClient("api").PostAsync("gateway", GetContentForm());
                 break;
 
             case Device.WaterMeter:
-                //response = await ClientFactory.CreateClient("api").PostAsync("watermeter", GetContentForm());
+                response = await ClientFactory.CreateClient("api").PostAsync("watermeter", GetContentForm());
                 break;
 
             default:
@@ -153,7 +153,7 @@ using System.Text;
 
         if (response == null || !response.IsSuccessStatusCode)
         {
-            _errorMessage = response.StatusCode == System.Net.HttpStatusCode.Conflict
+            _errorMessage = (response?.StatusCode ?? System.Net.HttpStatusCode.InternalServerError) == System.Net.HttpStatusCode.Conflict
             ? "Device already exist."
             : "There was an error adding this device. Please, try again.";
             return;

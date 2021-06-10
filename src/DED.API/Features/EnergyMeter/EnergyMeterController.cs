@@ -27,14 +27,14 @@ namespace DED.API.Features.EnergyMeter
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var result = await _mediator.Send(new EnergyMeterQuery.Query(id));
+            var result = await _mediator.Send(new GetEnergyMeterQuery.Query(id));
             return result != null ? Ok(result) : NotFound();
         }
 
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new EnergyMetersQuery.Query());
+            var result = await _mediator.Send(new GetAllEnergyMetersQuery.Query());
             return result != null ? Ok(result) : NotFound();
         }
 
@@ -44,7 +44,7 @@ namespace DED.API.Features.EnergyMeter
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = await _mediator.Send(new EnergyMeterQueryBySerialNumber.Query(model.SerialNumber));
+            var result = await _mediator.Send(new GetEnergyMeterQueryBySerialNumber.Query(model.SerialNumber));
             if (result != null)
                 return Conflict();
 

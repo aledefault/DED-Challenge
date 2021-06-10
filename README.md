@@ -15,6 +15,9 @@ docker-compose up -d --build --force-recreate --remove-orphans
 * API Swagger: https://localhost:44445/swagger
 * Web Blazor: https://localhost:44447
 
+## TODO
+* Implements Integration Tests
+
 ## Stack Used 
 * Net 5.0
 * NServiceBus
