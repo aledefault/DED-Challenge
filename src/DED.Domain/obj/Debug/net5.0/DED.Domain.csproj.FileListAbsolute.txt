@@ -1,0 +1,11 @@
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\bin\Debug\net5.0\DED.Domain.deps.json
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\bin\Debug\net5.0\DED.Domain.dll
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\bin\Debug\net5.0\ref\DED.Domain.dll
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\bin\Debug\net5.0\DED.Domain.pdb
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\DED.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\DED.Domain.AssemblyInfoInputs.cache
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\DED.Domain.AssemblyInfo.cs
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\DED.Domain.csproj.CoreCompileInputs.cache
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\DED.Domain.dll
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\ref\DED.Domain.dll
+C:\Users\SISTEMAS_27\source\DED\src\DED.Domain\obj\Debug\net5.0\DED.Domain.pdb

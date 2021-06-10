@@ -1,0 +1,21 @@
+﻿@page "/watermeters"
+@using DED.Web.Models
+@using System.Net.Http.Json
+@inject IHttpClientFactory ClientFactory
+
+<h1>WaterMeters</h1>
+
+@foreach (var waterMeter in _waterMeters)
+{
+    <p>@waterMeter.SerialNumber</p>
+}
+
+@code
+{
+    private List<DeviceModel> _waterMeters = new ();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _waterMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("watermeter");
+    }
+}

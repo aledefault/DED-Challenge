@@ -1,0 +1,21 @@
+﻿@page "/energymeters"
+@using DED.Web.Models
+@using System.Net.Http.Json
+@inject IHttpClientFactory ClientFactory
+
+<h1>EnergyMeters</h1>
+
+@foreach (var energyMeter in _energyMeters)
+{
+    <p>@energyMeter.SerialNumber</p>
+}
+
+@code
+{
+    private List<DeviceModel> _energyMeters = new ();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _energyMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("energymeter");
+    }
+}

@@ -1,0 +1,22 @@
+﻿@page "/gateways"
+@using DED.Web.Models
+@using System.Net.Http.Json
+@inject IHttpClientFactory ClientFactory
+
+<h1>Gateways</h1>
+
+@foreach (var gatewway in _gateways)
+{
+    <p>@gatewway.SerialNumber</p>
+}
+
+
+@code
+{
+    private List<DeviceModel> _gateways = new ();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _gateways = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("gateway");
+    }
+}

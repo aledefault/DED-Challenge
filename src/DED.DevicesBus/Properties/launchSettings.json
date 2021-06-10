@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DED.DevicesBus": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

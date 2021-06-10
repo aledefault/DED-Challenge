@@ -1,0 +1,81 @@
+version: '3.4'
+
+services:
+  ded.web:
+    image: ${DOCKER_REGISTRY-}dedweb
+    container_name: web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    build:
+      context: .
+      dockerfile: src/DED.Web/Dockerfile
+    ports:
+      - "44446:80"
+      - "44447:443"
+    networks:
+      - local
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on: 
+      - ded.api
+
+  ded.api:
+    image: ${DOCKER_REGISTRY-}dedapi
+    container_name: api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    build:
+      context: .
+      dockerfile: src/DED.API/Dockerfile
+    ports:
+      - "44444:80"
+      - "44445:443"
+    networks:
+      - local
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on: 
+      - rabbitmq
+      - mongodb
+
+  ded.devicesbus:
+    image: ${DOCKER_REGISTRY-}devicesbus
+    container_name: devicebus
+    build:
+      context: .
+      dockerfile: src/DED.DevicesBus/Dockerfile
+    networks:
+      - local
+    depends_on: 
+      - rabbitmq
+      - mongodb
+
+  rabbitmq:
+    image: "rabbitmq:3.8-management"
+    container_name: rabbit
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - local
+    healthcheck:
+      test: ["CMD-SHELL", "if rabbitmqctl status; then \nexit 0 \nfi \nexit 1"]
+      interval: 10s
+      retries: 5
+
+  mongodb:
+    image : mongo
+    container_name: mongo
+    ports:
+    - 27017:27017
+    networks:
+      - local
+    restart: unless-stopped
+
+networks:
+  local:
+    driver: bridge
