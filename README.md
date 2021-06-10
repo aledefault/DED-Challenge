@@ -16,7 +16,7 @@ docker-compose up -d --build --force-recreate --remove-orphans
 * Web Blazor: https://localhost:44447
 
 ## TODO
-* Implements Integration Tests
+* Implement Integration Tests
 
 ## Stack Used 
 * Net 5.0
