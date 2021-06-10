@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace DED.API.Features.WaterMeter
 {
-    public class GetWaterMeterQueryBySerialNumber
+    public class GetWaterMeterBySerialNumberQuery
     {
         public record Query(string SerialNumber) : IRequest<Domain.WaterMeter> { }
 

@@ -21,7 +21,7 @@ namespace DED.DevicesBus.Handlers
             {
                 var collection = _mongoDbService.GetDatabase().GetCollection<Device>(request.Device.GetType().Name);
 
-                var filter = new FilterDefinitionBuilder<Device>().And(
+                var filter = new FilterDefinitionBuilder<Device>().Or(
                     new FilterDefinitionBuilder<Device>().Eq("Id", request.Device.Id),
                     new FilterDefinitionBuilder<Device>().Eq("SerialNumber", request.Device.SerialNumber)
                 );

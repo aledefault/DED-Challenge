@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace DED.API.Features.EnergyMeter
 {
-    public class GetEnergyMeterQueryBySerialNumber
+    public class GetEnergyMeterBySerialNumberQuery
     {
         public record Query(string SerialNumber) : IRequest<Domain.EnergyMeter> { }
 

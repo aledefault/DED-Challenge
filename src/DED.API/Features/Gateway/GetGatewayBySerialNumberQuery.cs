@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace DED.API.Features.Gateway
 {
-    public class GetGatewayQueryBySerialNumber
+    public class GetGatewayBySerialNumberQuery
     {
         public record Query(string SerialNumber) : IRequest<Domain.Gateway> { }
 

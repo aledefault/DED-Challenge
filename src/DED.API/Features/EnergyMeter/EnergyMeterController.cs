@@ -44,7 +44,7 @@ namespace DED.API.Features.EnergyMeter
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = await _mediator.Send(new GetEnergyMeterQueryBySerialNumber.Query(model.SerialNumber));
+            var result = await _mediator.Send(new GetEnergyMeterBySerialNumberQuery.Query(model.SerialNumber));
             if (result != null)
                 return Conflict();
 

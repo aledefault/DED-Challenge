@@ -44,7 +44,7 @@ namespace DED.API.Features.WaterMeter
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = await _mediator.Send(new GetWaterMeterQueryBySerialNumber.Query(model.SerialNumber));
+            var result = await _mediator.Send(new GetWaterMeterBySerialNumberQuery.Query(model.SerialNumber));
             if (result != null)
                 return Conflict();
 

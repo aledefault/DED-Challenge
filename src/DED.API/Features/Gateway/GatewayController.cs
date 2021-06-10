@@ -44,7 +44,7 @@ namespace DED.API.Features.Gateway
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = await _mediator.Send(new GetGatewayQueryBySerialNumber.Query(model.SerialNumber));
+            var result = await _mediator.Send(new GetGatewayBySerialNumberQuery.Query(model.SerialNumber));
             if (result != null)
                 return Conflict();
 
