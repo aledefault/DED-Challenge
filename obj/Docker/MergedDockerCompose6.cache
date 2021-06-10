@@ -1,0 +1,89 @@
+networks:
+  local:
+    driver: bridge
+services:
+  ded.api:
+    build:
+      context: C:\Users\SISTEMAS_27\source\DED
+      dockerfile: src/DED.API/Dockerfile
+    container_name: api
+    depends_on:
+      ded.devicesbus:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: dedapi
+    networks:
+      local: {}
+    ports:
+    - published: 44444
+      target: 80
+    - published: 44445
+      target: 443
+    volumes:
+    - C:\Users\SISTEMAS_27\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\SISTEMAS_27\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  ded.devicesbus:
+    build:
+      context: C:\Users\SISTEMAS_27\source\DED
+      dockerfile: src/DED.DevicesBus/Dockerfile
+    container_name: devicebus
+    depends_on:
+      mongodb:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+    image: devicesbus
+    networks:
+      local: {}
+  ded.web:
+    build:
+      context: C:\Users\SISTEMAS_27\source\DED
+      dockerfile: src/DED.Web/Dockerfile
+    container_name: web
+    depends_on:
+      ded.api:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: dedweb
+    networks:
+      local: {}
+    ports:
+    - published: 44446
+      target: 80
+    - published: 44447
+      target: 443
+    volumes:
+    - C:\Users\SISTEMAS_27\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\SISTEMAS_27\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  mongodb:
+    container_name: mongo
+    image: mongo
+    networks:
+      local: {}
+    ports:
+    - published: 27017
+      target: 27017
+    restart: unless-stopped
+  rabbitmq:
+    container_name: rabbit
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test:
+      - CMD-SHELL
+      - "if rabbitmqctl status; then \nexit 0 \nfi \nexit 1"
+    image: rabbitmq:3.8-management
+    networks:
+      local: {}
+    ports:
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
+version: '3.4'

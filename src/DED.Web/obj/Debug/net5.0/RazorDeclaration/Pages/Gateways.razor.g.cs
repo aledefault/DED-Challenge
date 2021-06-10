@@ -104,7 +104,7 @@ using System.Timers;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/gateways")]
-    public partial class Gateways : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Gateways : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -140,6 +140,11 @@ using System.Timers;
     {
         _gateways.Add(_deviceModelForm);
         StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        _timer.Elapsed -= PoolingData;
     }
 
 #line default

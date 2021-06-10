@@ -104,7 +104,7 @@ using System.Timers;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/watermeters")]
-    public partial class WaterMeters : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class WaterMeters : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -140,6 +140,11 @@ using System.Timers;
     {
         _waterMeters.Add(_deviceModelForm);
         StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        _timer.Elapsed -= PoolingData;
     }
 
 #line default

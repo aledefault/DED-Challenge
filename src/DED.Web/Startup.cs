@@ -30,7 +30,6 @@ namespace DED.Web
                 return clientHandler; 
             });
 
-
             services.AddRazorPages();
             services.AddServerSideBlazor();
         }

@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace DED.Web.Pages
+namespace DED.Web.Shared
 {
     #line hidden
     using System;
@@ -76,35 +76,34 @@ using DED.Web;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
-using DED.Web.Models;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
-using System.Net.Http.Json;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
+#line 10 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\_Imports.razor"
 using DED.Web.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
-using System.Timers;
+#line 1 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Shared\DeviceForm.razor"
+using DED.Web.Models;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/energymeters")]
-    public partial class EnergyMeters : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
+#nullable restore
+#line 2 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Shared\DeviceForm.razor"
+using System.Net.Http.Headers;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Shared\DeviceForm.razor"
+using System.Text;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class DeviceForm : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -112,39 +111,67 @@ using System.Timers;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 46 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
- 
-    private List<DeviceModel> _energyMeters = new();
-    private bool _showForm = false;
-    private DeviceModel _deviceModelForm = new DeviceModel();
-    private Timer _timer = new Timer();
+#line 54 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Shared\DeviceForm.razor"
+       
+    [Parameter]
+    public DeviceModel DeviceFormModel { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        _energyMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("energymeter");
-        _timer.Interval = 3000;
-        _timer.Elapsed += PoolingData;
-        _timer.Start();
-    }
+    [Parameter]
+    public Device DeviceToAdd { get; set; }
 
-    private void PoolingData(object sender, ElapsedEventArgs e)
+    [Parameter]
+    public EventCallback OnHide { get; set; }
+
+    [Parameter]
+    public EventCallback OnSuccess { get; set; }
+
+
+    public enum Device { EnergyMeter, Gateway, WaterMeter }
+
+    private string _errorMessage = "";
+
+    private async Task SubmitForm()
     {
-        InvokeAsync(async () =>
+        HttpResponseMessage response = null;
+        switch (DeviceToAdd)
         {
-            _energyMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("energymeter");
-            StateHasChanged();
-        });
-    }
+            case Device.EnergyMeter:
+                //response = await ClientFactory.CreateClient("api").PostAsync("energymeter", GetContentForm());
+                break;
 
-    private void FormSubmited()
-    {
-        _energyMeters.Add(_deviceModelForm);
-        StateHasChanged();
-    }
+            case Device.Gateway:
+                //response = await ClientFactory.CreateClient("api").PostAsync("gateway", GetContentForm());
+                break;
 
-    public void Dispose()
-    {
-        _timer.Elapsed -= PoolingData;
+            case Device.WaterMeter:
+                //response = await ClientFactory.CreateClient("api").PostAsync("watermeter", GetContentForm());
+                break;
+
+            default:
+                return;
+        }
+
+        if (response == null || !response.IsSuccessStatusCode)
+        {
+            _errorMessage = response.StatusCode == System.Net.HttpStatusCode.Conflict
+            ? "Device already exist."
+            : "There was an error adding this device. Please, try again.";
+            return;
+        }
+        else
+        {
+            _errorMessage = "";
+        }
+
+        await OnSuccess.InvokeAsync();
+
+        HttpContent GetContentForm()
+        {
+            HttpContent httpContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(DeviceFormModel), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            return httpContent;
+        }
     }
 
 #line default

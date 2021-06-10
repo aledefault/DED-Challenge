@@ -9,7 +9,7 @@ Devices Management System challenge. It's been implemented using Vertical Slice 
 Run docker compose in the root of the project. 
  
 ```
- docker-compose up 
+docker-compose up -d --build --force-recreate --remove-orphans
 ```
 
 ## Stack Used 

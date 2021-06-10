@@ -3,7 +3,7 @@
 @using System.Net.Http.Json
 @using DED.Web.Shared
 @using System.Timers
-
+@implements IDisposable 
 @inject IHttpClientFactory ClientFactory
 
 <h1>WaterMeters</h1>
@@ -70,5 +70,10 @@ else
     {
         _waterMeters.Add(_deviceModelForm);
         StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        _timer.Elapsed -= PoolingData;
     }
 }
