@@ -16,7 +16,8 @@ docker-compose up -d --build --force-recreate --remove-orphans
 * Web Blazor: https://localhost:44447
 
 ## TODO
-* Implement Integration Tests
+* Implement Integration Tests.
+* Add SignalR to prevent of using long pooling.
 
 ## Stack Used 
 * Net 5.0
