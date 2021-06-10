@@ -76,13 +76,6 @@ using DED.Web;
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\_Imports.razor"
-using DED.Web.Shared;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 2 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\WaterMeters.razor"
 using DED.Web.Models;
 
@@ -96,6 +89,20 @@ using System.Net.Http.Json;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\WaterMeters.razor"
+using DED.Web.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\WaterMeters.razor"
+using System.Timers;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/watermeters")]
     public partial class WaterMeters : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,13 +112,34 @@ using System.Net.Http.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 14 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\WaterMeters.razor"
+#line 46 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\WaterMeters.razor"
  
-    private List<DeviceModel> _waterMeters = new ();
+    private List<DeviceModel> _waterMeters = new();
+    private bool _showForm = false;
+    private DeviceModel _deviceModelForm = new DeviceModel();
+    private Timer _timer = new Timer();
 
     protected override async Task OnInitializedAsync()
     {
         _waterMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("watermeter");
+        _timer.Interval = 3000;
+        _timer.Elapsed += PoolingData;
+        _timer.Start();
+    }
+
+    private void PoolingData(object sender, ElapsedEventArgs e)
+    {
+        InvokeAsync(async () =>
+        {
+            _waterMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("watermeter");
+            StateHasChanged();
+        });
+    }
+
+    private void FormSubmited()
+    {
+        _waterMeters.Add(_deviceModelForm);
+        StateHasChanged();
     }
 
 #line default

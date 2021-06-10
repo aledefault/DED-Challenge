@@ -56,3 +56,5 @@ C:\Users\SISTEMAS_27\source\DED\src\DED.Web\obj\Debug\net5.0\RazorDeclaration\Pa
 C:\Users\SISTEMAS_27\source\DED\src\DED.Web\obj\Debug\net5.0\Razor\Pages\EnergyMeters.razor.g.cs
 C:\Users\SISTEMAS_27\source\DED\src\DED.Web\obj\Debug\net5.0\Razor\Pages\Gateways.razor.g.cs
 C:\Users\SISTEMAS_27\source\DED\src\DED.Web\obj\Debug\net5.0\Razor\Pages\WaterMeters.razor.g.cs
+C:\Users\SISTEMAS_27\source\DED\src\DED.Web\obj\Debug\net5.0\RazorDeclaration\Shared\DeviceForm.razor.g.cs
+C:\Users\SISTEMAS_27\source\DED\src\DED.Web\obj\Debug\net5.0\Razor\Shared\DeviceForm.razor.g.cs

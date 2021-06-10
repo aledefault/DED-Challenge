@@ -76,13 +76,6 @@ using DED.Web;
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\_Imports.razor"
-using DED.Web.Shared;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 2 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
 using DED.Web.Models;
 
@@ -96,6 +89,20 @@ using System.Net.Http.Json;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
+using DED.Web.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
+using System.Timers;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/energymeters")]
     public partial class EnergyMeters : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,13 +112,34 @@ using System.Net.Http.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 14 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
+#line 46 "C:\Users\SISTEMAS_27\source\DED\src\DED.Web\Pages\EnergyMeters.razor"
  
-    private List<DeviceModel> _energyMeters = new ();
+    private List<DeviceModel> _energyMeters = new();
+    private bool _showForm = false;
+    private DeviceModel _deviceModelForm = new DeviceModel();
+    private Timer _timer = new Timer();
 
     protected override async Task OnInitializedAsync()
     {
         _energyMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("energymeter");
+        _timer.Interval = 3000;
+        _timer.Elapsed += PoolingData;
+        _timer.Start();
+    }
+
+    private void PoolingData(object sender, ElapsedEventArgs e)
+    {
+        InvokeAsync(async () =>
+        {
+            _energyMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("energymeter");
+            StateHasChanged();
+        });
+    }
+
+    private void FormSubmited()
+    {
+        _energyMeters.Add(_deviceModelForm);
+        StateHasChanged();
     }
 
 #line default
