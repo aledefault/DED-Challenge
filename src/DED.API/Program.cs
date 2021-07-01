@@ -1,8 +1,7 @@
+using DED.Message;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NServiceBus;
-using System.Threading.Tasks;
-using DED.Message;
 
 namespace DED.API
 {
