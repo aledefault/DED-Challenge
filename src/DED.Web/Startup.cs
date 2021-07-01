@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using DED.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,8 @@ namespace DED.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<DeviceCreatedEventService>();
+
             services.AddHttpClient("api", c =>
             {
                 c.BaseAddress = new Uri("https://api:443/api/v1/");

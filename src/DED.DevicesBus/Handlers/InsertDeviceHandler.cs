@@ -1,4 +1,5 @@
-﻿using DED.Message;
+﻿using DED.Events;
+using DED.Message;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
@@ -33,11 +34,7 @@ namespace DED.DevicesBus.Handlers
                 _logger.LogInformation($"Saving {deviceCreate.Device.GetType().Name}...");
 
                 var result = await _mediator.Send(new CreateDeviceCommand.Command(deviceCreate.Device));
-                await context.Reply(new DeviceResponse
-                {
-                    Success = result,
-                    Messages = new List<string>()
-                });
+                await context.Publish(new DeviceCreated { Device = result }).ConfigureAwait(false);
             }
             catch (Exception e)
             {

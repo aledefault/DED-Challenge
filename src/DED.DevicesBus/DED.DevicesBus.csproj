@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DED.Domain\DED.Domain.csproj" />
+    <ProjectReference Include="..\DED.Events\DED.Events.csproj" />
     <ProjectReference Include="..\DED.Message\DED.Message.csproj" />
   </ItemGroup>
 

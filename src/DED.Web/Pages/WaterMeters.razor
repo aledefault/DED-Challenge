@@ -1,10 +1,12 @@
 ﻿@page "/watermeters"
+@using DED.Web.Services
 @using DED.Web.Models
 @using System.Net.Http.Json
 @using DED.Web.Shared
 @using System.Timers
 @implements IDisposable 
 @inject IHttpClientFactory ClientFactory
+@inject DeviceCreatedEventService deviceCreatedService
 
 <h1>WaterMeters</h1>
 
@@ -47,21 +49,23 @@ else
     private List<DeviceModel> _waterMeters = new();
     private bool _showForm = false;
     private DeviceModel _deviceModelForm = new DeviceModel();
-    private Timer _timer = new Timer();
 
     protected override async Task OnInitializedAsync()
     {
         _waterMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("watermeter");
-        _timer.Interval = 3000;
-        _timer.Elapsed += PoolingData;
-        _timer.Start();
+        deviceCreatedService.DeviceCreatedRecieved   += GetData;
     }
-
-    private void PoolingData(object sender, ElapsedEventArgs e)
+        
+    private void GetData(object sender, DeviceCreatedEventArgs e)
     {
+        if (e.Device.GetType() != typeof(DED.Domain.WaterMeter))
+            return;
+
         InvokeAsync(async () =>
         {
-            _waterMeters = await ClientFactory.CreateClient("api").GetFromJsonAsync<List<DeviceModel>>("watermeter");
+            var result = await ClientFactory.CreateClient("api").GetFromJsonAsync<DeviceModel>($"watermeter\\{e.Device.Id}");
+            var index = _waterMeters.FindIndex(d => d.SerialNumber == e.Device.SerialNumber);
+            _waterMeters[index] = result;
             StateHasChanged();
         });
     }
@@ -72,8 +76,5 @@ else
         StateHasChanged();
     }
 
-    public void Dispose()
-    {
-        _timer.Elapsed -= PoolingData;
-    }
+    public void Dispose() => deviceCreatedService.DeviceCreatedRecieved -= GetData; 
 }
