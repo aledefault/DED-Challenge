@@ -17,7 +17,6 @@ docker-compose up -d --build --force-recreate --remove-orphans
 
 ## TODO
 * Implement Integration Tests.
-* Add SignalR to prevent of using long polling.
 
 ## Stack Used 
 * Net 5.0
