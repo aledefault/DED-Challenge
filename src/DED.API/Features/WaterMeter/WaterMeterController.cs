@@ -48,7 +48,7 @@ namespace DED.API.Features.WaterMeter
             if (result != null)
                 return Conflict();
 
-            var command = new DeviceCreate
+            var command = new CreateDevice
             {
                 Device = new Domain.WaterMeter(Guid.NewGuid(), model.SerialNumber, model.Brand, model.Model)
             };

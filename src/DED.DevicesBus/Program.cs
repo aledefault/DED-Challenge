@@ -1,13 +1,8 @@
-﻿using System.Net;
-using DED.DevicesBus.Services;
-using DED.Domain;
-using Microsoft.Extensions.Hosting;
-using NServiceBus;
+﻿using DED.DevicesBus.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using StackExchange.Redis;
+using Microsoft.Extensions.Hosting;
+using NServiceBus;
 
 namespace DED.DevicesBus
 {

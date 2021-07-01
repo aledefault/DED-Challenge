@@ -23,7 +23,7 @@ namespace DED.API
                     transport.UseConventionalRoutingTopology();
 
                     var routing = transport.Routing();
-                    routing.RouteToEndpoint(typeof(DeviceCreate), "DED.DevicesBus");
+                    routing.RouteToEndpoint(typeof(CreateDevice), "DED.DevicesBus");
 
                     endpointConfiguration.SendFailedMessagesTo("error");
                     endpointConfiguration.AuditProcessedMessagesTo("audit");

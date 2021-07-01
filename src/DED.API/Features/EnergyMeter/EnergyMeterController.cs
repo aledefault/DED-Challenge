@@ -48,7 +48,7 @@ namespace DED.API.Features.EnergyMeter
             if (result != null)
                 return Conflict();
 
-            var command = new DeviceCreate
+            var command = new CreateDevice
             {
                 Device = new Domain.EnergyMeter(Guid.NewGuid(), model.SerialNumber, model.Brand, model.Model)
             };

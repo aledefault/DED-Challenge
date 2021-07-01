@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DED.DevicesBus.Handlers
 {
     public class InsertDeviceHandler :
-        IHandleMessages<DeviceCreate>
+        IHandleMessages<CreateDevice>
     {
         private readonly ILogger<InsertDeviceHandler> _logger;
         private readonly IMediator _mediator;
@@ -20,7 +20,7 @@ namespace DED.DevicesBus.Handlers
             _mediator = mediator;
         }
 
-        public async Task Handle(DeviceCreate deviceCreate, IMessageHandlerContext context)
+        public async Task Handle(CreateDevice deviceCreate, IMessageHandlerContext context)
         {
             try
             {

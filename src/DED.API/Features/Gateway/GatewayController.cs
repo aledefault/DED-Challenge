@@ -48,7 +48,7 @@ namespace DED.API.Features.Gateway
             if (result != null)
                 return Conflict();
 
-            var command = new DeviceCreate
+            var command = new CreateDevice
             {
                 Device = new Domain.Gateway(Guid.NewGuid(), model.SerialNumber, model.Ip, model.Port, model.Brand, model.Model)
             };

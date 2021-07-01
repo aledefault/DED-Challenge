@@ -3,7 +3,7 @@ using NServiceBus;
 
 namespace DED.Message
 {
-    public class DeviceCreate : ICommand
+    public class CreateDevice : ICommand
     {
         public Device Device { get; set; }
     }
