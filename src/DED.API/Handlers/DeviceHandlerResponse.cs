@@ -1,4 +1,4 @@
-﻿using DED.Message;
+﻿using DED.Messages;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using System.Threading.Tasks;

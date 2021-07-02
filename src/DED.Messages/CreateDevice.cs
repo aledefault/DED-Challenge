@@ -1,7 +1,7 @@
 ﻿using DED.Domain;
 using NServiceBus;
 
-namespace DED.Message
+namespace DED.Messages
 {
     public class CreateDevice : ICommand
     {

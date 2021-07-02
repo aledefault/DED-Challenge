@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BB91A587-D628-44C5-8EBF-20EEA9081E73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DED.Message", "src\DED.Message\DED.Message.csproj", "{3EA82682-0B2E-4E65-830F-DDDB075A9C85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DED.Messages", "src\DED.Messages\DED.Messages.csproj", "{3EA82682-0B2E-4E65-830F-DDDB075A9C85}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DED.Domain", "src\DED.Domain\DED.Domain.csproj", "{E7EB5025-194E-478A-B357-C8C3344770C2}"
 EndProject

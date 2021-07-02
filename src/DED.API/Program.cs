@@ -1,4 +1,4 @@
-using DED.Message;
+using DED.Messages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NServiceBus;

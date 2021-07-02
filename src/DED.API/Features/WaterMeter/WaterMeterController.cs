@@ -1,4 +1,4 @@
-﻿using DED.Message;
+﻿using DED.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

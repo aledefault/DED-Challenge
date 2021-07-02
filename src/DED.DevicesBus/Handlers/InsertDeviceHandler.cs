@@ -1,5 +1,5 @@
 ﻿using DED.Events;
-using DED.Message;
+using DED.Messages;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
